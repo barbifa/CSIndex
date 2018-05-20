@@ -14,7 +14,7 @@ app = Flask(__name__, template_folder='templates')
 def numeroPubliNoConjuntoDeConferenciasDeUmaArea(area):
     nPublicacoes = 0
   
-    filename = "./data/"+ area + "-out-papers.csv"
+    filename = "../data/"+ area + "-out-papers.csv"
     with open(filename, 'r') as file:
         data = csv.DictReader(file, delimiter=';', quotechar='|')
         for row in data :
@@ -27,7 +27,7 @@ def numeroPubliNoConjuntoDeConferenciasDeUmaArea(area):
 #questao 4
 @app.route('/scoreDeUmDepartamentoEmUmaArea/<departamento>/<area>')
 def scoreDeUmDepartamentoEmUmaArea(departamento, area):
-    filename = "./data/"+ area + "-out-scores.csv"
+    filename = "../data/"+ area + "-out-scores.csv"
     with open(filename, 'r') as file:
         data = csv.reader(file)
         for row in data :
@@ -39,7 +39,7 @@ def scoreDeUmDepartamentoEmUmaArea(departamento, area):
 #questao 6
 @app.route('/numeroDeProfessoresDeUmDepartamentoQuePublicaramEmUmaArea/<departamento>/<area>')
 def numeroDeProfessoresDeUmDepartamentoQuePublicaramEmUmaArea(departamento,area):
-    filename = "./data/"+ area + "-out-profs.csv"
+    filename = "../data/"+ area + "-out-profs.csv"
     with open(filename, 'r') as file:
         data = csv.reader(file)
         for row in data :
@@ -49,7 +49,7 @@ def numeroDeProfessoresDeUmDepartamentoQuePublicaramEmUmaArea(departamento,area)
 #questao 8
 @app.route('/PapersDeUmaAreaEmUmDeterminadoAno/<ano>/<area>')
 def PapersDeUmaAreaEmUmDeterminadoAno(ano,area):
-    filename = "./data/"+ area + "-out-papers.csv"
+    filename = "../data/"+ area + "-out-papers.csv"
     papers = []
     with open(filename, 'r') as file:
         data = csv.reader(file)
@@ -68,7 +68,7 @@ def PapersDeUmaAreaEmUmDeterminadoAno(ano,area):
 #questao 10
 @app.route('/TodosOsPapersDeUmProfessor/<string:nomeProfessor>')
 def TodosOsPapersDeUmProfessor(nomeProfessor):
-    filename = "./data/profs/search/"+ nomeProfessor + ".csv"
+    filename = "../data/profs/search/"+ nomeProfessor + ".csv"
     papers = []
     with open(filename, 'r') as file:
         data = csv.reader(file)
@@ -89,7 +89,6 @@ def TodosOsPapersDeUmProfessor(nomeProfessor):
 
 if __name__ == '__main__':		
 	app.run(debug=True)
-
 
 
 
