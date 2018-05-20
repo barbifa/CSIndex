@@ -16,27 +16,27 @@ $ FLASK_APP=teste.py flask run
 
 # GET questoes
 1. Número de publicações em uma determinada conferência de uma área
-2. Número de publicações no conjunto de conferências de uma área
+2. Número de publicações no conjunto de conferências de uma área<br />
     http://localhost:5000/numeroPubliNoConjuntoDeConferenciasDeUmaArea/#area
 
     #area: pode ser qualquer abreviacao  das areas em CSIndex/data
     
 3. Scores de todos os departamentos em uma área
-4. Score de um determinado departamento em uma área.
+4. Score de um determinado departamento em uma área.<br />
     http://localhost:5000/scoreDeUmDepartamentoEmUmaArea/#departamento/#area
 
     #departamento: Qualquer abreviacao das universidades do CSIndex
     #area: pode ser qualquer abreviacao  das areas em CSIndex/data
 
 5. Número de professores que publicam em uma determinada área (organizados por departamentos)
-6. Número de professores de um determinado departamento que publicam em uma área
+6. Número de professores de um determinado departamento que publicam em uma área<br />
     http://localhost:5000/numeroDeProfessoresDeUmDepartamentoQuePublicaramEmUmaArea/#departamento/#area
 
     #departamento: Qualquer abreviacao das universidades do CSIndex
     #area: pode ser qualquer abreviacao  das areas em CSIndex/data
 
 7. Todos os papers de uma área (ano, título, deptos e autores)
-8. Todos os papers de uma área em um determinado ano
+8. Todos os papers de uma área em um determinado ano<br />
     http://localhost:5000/PapersDeUmaAreaEmUmDeterminadoAno/#ano/#area
 
     #area:  abreviacao  das areas em CSIndex/data
@@ -44,7 +44,7 @@ $ FLASK_APP=teste.py flask run
 
 9. Todos os papers de um departamento em uma área
 
-10. Todos os papers de um professor (dado o seu nome)
+10. Todos os papers de um professor (dado o seu nome)<br />
     http://localhost:5000/TodosOsPapersDeUmProfessor/#snomeProfessor
 
      #nomeProfessor: Nome valido de professor
