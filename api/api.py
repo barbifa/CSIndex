@@ -6,8 +6,64 @@ import StringIO
 from flask import request
 import sys
 import os
+from datetime import timedelta
+from flask import make_response, request, current_app
+from functools import update_wrapper
 
 app = Flask(__name__, template_folder='templates')
+
+# Function for allowing HTTP access to the server. =D vide : http://flask.pocoo.org/snippets/56/ 
+def crossdomain(origin=None, methods=None, headers=None, max_age=21600,
+                attach_to_all=True, automatic_options=True):
+    """Decorator function that allows crossdomain requests.
+      Courtesy of
+      https://blog.skyred.fi/articles/better-crossdomain-snippet-for-flask.html
+    """
+    if methods is not None:
+        methods = ', '.join(sorted(x.upper() for x in methods))
+    if headers is not None and not isinstance(headers, basestring):
+        headers = ', '.join(x.upper() for x in headers)
+    if not isinstance(origin, basestring):
+        origin = ', '.join(origin)
+    if isinstance(max_age, timedelta):
+        max_age = max_age.total_seconds()
+
+    def get_methods():
+        """ Determines which methods are allowed
+        """
+        if methods is not None:
+            return methods
+
+        options_resp = current_app.make_default_options_response()
+        return options_resp.headers['allow']
+
+    def decorator(f):
+        """The decorator function
+        """
+        def wrapped_function(*args, **kwargs):
+            """Caries out the actual cross domain code
+            """
+            if automatic_options and request.method == 'OPTIONS':
+                resp = current_app.make_default_options_response()
+            else:
+                resp = make_response(f(*args, **kwargs))
+            if not attach_to_all and request.method != 'OPTIONS':
+                return resp
+
+            h = resp.headers
+            h['Access-Control-Allow-Origin'] = origin
+            h['Access-Control-Allow-Methods'] = get_methods()
+            h['Access-Control-Max-Age'] = str(max_age)
+            h['Access-Control-Allow-Credentials'] = 'true'
+            h['Access-Control-Allow-Headers'] = \
+                "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+            if headers is not None:
+                h['Access-Control-Allow-Headers'] = headers
+            return resp
+
+        f.provide_automatic_options = False
+        return update_wrapper(wrapped_function, f)
+    return decorator
 
 #1. Numero de publicacoes em uma determinada conferencia de uma area
 @app.route('/nPubConferenciasDeUmaArea/<string:conferencia>/<string:area>')
@@ -33,7 +89,8 @@ def nPubConferenciasDeUmaArea(conferencia, area):
     return 'Arquivo salvo!'
 
 #questao 2
-@app.route('/numeroPubliNoConjuntoDeConferenciasDeUmaArea/<area>')
+@app.route('/numeroPubliNoConjuntoDeConferenciasDeUmaArea/<area>',methods=['GET', 'OPTIONS'])
+@crossdomain(origin='*')
 def numeroPubliNoConjuntoDeConferenciasDeUmaArea(area):
 	nPublicacoes = 0
 	filename = "../data/"+ area + "-out-papers.csv"
@@ -74,6 +131,7 @@ def scoresDepartamentosDaArea(area):
 
 #questao 4
 @app.route('/scoreDeUmDepartamentoEmUmaArea/<departamento>/<area>')
+@crossdomain(origin='*')
 def scoreDeUmDepartamentoEmUmaArea(departamento, area):
     filename = "../data/"+ area + "-out-scores.csv"
     with open(filename, 'r') as file:
@@ -112,6 +170,7 @@ def nProfessoresArea(area):
 
 #questao 6
 @app.route('/numeroDeProfessoresDeUmDepartamentoQuePublicaramEmUmaArea/<departamento>/<area>')
+@crossdomain(origin='*')
 def numeroDeProfessoresDeUmDepartamentoQuePublicaramEmUmaArea(departamento,area):
     filename = "../data/"+ area + "-out-profs.csv"
     with open(filename, 'r') as file:
@@ -149,6 +208,7 @@ def papersArea( area):
 	
 #questao 8
 @app.route('/PapersDeUmaAreaEmUmDeterminadoAno/<ano>/<area>')
+@crossdomain(origin='*')
 def PapersDeUmaAreaEmUmDeterminadoAno(ano,area):
     filename = "../data/"+ area + "-out-papers.csv"
     papers = []
@@ -191,6 +251,8 @@ def papersDepartamentoArea(departamento, area):
 
 #questao 10
 @app.route('/TodosOsPapersDeUmProfessor/<string:nomeProfessor>')
+@crossdomain(origin='*')
+
 def TodosOsPapersDeUmProfessor(nomeProfessor):
     filename = "../data/profs/search/"+ nomeProfessor + ".csv"
     papers = []
@@ -215,3 +277,5 @@ def TodosOsPapersDeUmProfessor(nomeProfessor):
 
 if __name__ == '__main__':		
 	app.run(debug=True)
+
+
