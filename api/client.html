@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8"/>
+ <head>
+  <title>API REST CSINDEX</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ </head>
+ <body>
+  <div class="container">
+   <div class="table-responsive">
+    <h1 align="center">API REST CSINDEX</h1>
+	<h2 align="center">Jessica e Barbara</h2>
+    
+    <div align="center">
+
+     <button type="button" name="questao_2_1" id="questao_2_1" class="btn btn-info"> Questao 2 (1)</button>
+     <button type="button" name="questao_2_2" id="questao_2_2" class="btn btn-info"> Questao 2 (2)</button>
+     <button type="button" name="questao_2_3" id="questao_2_3" class="btn btn-info"> Questao 2 (3)</button>
+
+	<br><br>
+	 <button type="button" name="questao_4_1" id="questao_4_1" class="btn btn-info"> Questao 4 (1)</button>
+	 <button type="button" name="questao_4_2" id="questao_4_2" class="btn btn-info"> Questao 4 (2)</button>
+	 <button type="button" name="questao_4_3" id="questao_4_3" class="btn btn-info"> Questao 4 (3)</button>
+    
+	<br><br>
+	 <button type="button" name="questao_6_1" id="questao_6_1" class="btn btn-info"> Questao 6 (1)</button>
+	 <button type="button" name="questao_6_2" id="questao_6_2" class="btn btn-info"> Questao 6 (2)</button>
+	 <button type="button" name="questao_6_3" id="questao_6_3" class="btn btn-info"> Questao 6 (3)</button>
+	<br><br>
+	 <button type="button" name="questao_8_1" id="questao_8_1" class="btn btn-info"> Questao 8 (1)</button>
+	 <button type="button" name="questao_8_2" id="questao_8_2" class="btn btn-info"> Questao 8 (2)</button>
+	 <button type="button" name="questao_8_3" id="questao_8_3" class="btn btn-info"> Questao 8 (3)</button>
+	<br><br>
+	 <button type="button" name="questao_10_1" id="questao_10_1" class="btn btn-info"> Questao 10 (1)</button>
+	 <button type="button" name="questao_10_2" id="questao_10_2" class="btn btn-info"> Questao 10 (2)</button>
+	 <button type="button" name="questao_10_3" id="questao_10_3" class="btn btn-info"> Questao 10 (3)</button>
+	<br>
+    <br />
+	<div id="titulo1">
+	</div>
+    <div id="result_1">
+    </div>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>
+
+<script>
+$(document).ready(function(){
+ $('#questao_2_1').click(function(){
+  $.ajax({
+   url:"http://localhost:5000/numeroPubliNoConjuntoDeConferenciasDeUmaArea/arch",
+   dataType:"text",
+   success:function(data)
+   {
+    var data = data.split(/\r?\n|\r/);
+    var table_data = '<table class="table table-bordered table-striped">';
+    for(var count = 0; count<data.length; count++)
+    {
+     var cell_data = data[count].split(",");
+     table_data += '<tr>';
+     for(var cell_count=0; cell_count<cell_data.length; cell_count++)
+     {
+
+       table_data += '<td>'+cell_data[cell_count]+'</td>';
+
+     }
+     table_data += '</tr>';
+    }
+    table_data += '</table>';
+	$('#titulo1').html("Numero de publicacoes em conferencias de Arch");
+    $('#result_1').html(table_data);
+   }
+  });
+ });
+
+$('#questao_2_2').click(function(){
+  $.ajax({
+   url:"http://localhost:5000/numeroPubliNoConjuntoDeConferenciasDeUmaArea/data",
+   dataType:"text",
+   success:function(data)
+   {
+    var data = data.split(/\r?\n|\r/);
+    var table_data = '<table class="table table-bordered table-striped">';
+    for(var count = 0; count<data.length; count++)
+    {
+     var cell_data = data[count].split(",");
+     table_data += '<tr>';
+     for(var cell_count=0; cell_count<cell_data.length; cell_count++)
+     {
+
+       table_data += '<td>'+cell_data[cell_count]+'</td>';
+
+     }
+     table_data += '</tr>';
+    }
+    table_data += '</table>';
+	$('#titulo1').html("Numero de publicacoes em conferencias de data");
+    $('#result_1').html(table_data);
+   }
+  });
+ });
+
+$('#questao_2_3').click(function(){
+  $.ajax({
+   url:"http://localhost:5000/numeroPubliNoConjuntoDeConferenciasDeUmaArea/mobile",
+   dataType:"text",
+   success:function(data)
+   {
+    var data = data.split(/\r?\n|\r/);
+    var table_data = '<table class="table table-bordered table-striped">';
+    for(var count = 0; count<data.length; count++)
+    {
+     var cell_data = data[count].split(",");
+     table_data += '<tr>';
+     for(var cell_count=0; cell_count<cell_data.length; cell_count++)
+     {
+
+       table_data += '<td>'+cell_data[cell_count]+'</td>';
+
+     }
+     table_data += '</tr>';
+    }
+    table_data += '</table>';
+	$('#titulo1').html("Numero de publicacoes em conferencias de mobile");
+    $('#result_1').html(table_data);
+   }
+  });
+ });
+
+
+$('#questao_4_1').click(function(){
+  $.ajax({
+   url:"http://localhost:5000/scoreDeUmDepartamentoEmUmaArea/UFMG/data",
+   dataType:"text",
+   success:function(data)
+   {
+    var data = data.split(/\r?\n|\r/);
+    var table_data = '<table class="table table-bordered table-striped">';
+    for(var count = 0; count<data.length; count++)
+    {
+     var cell_data = data[count].split(",");
+     table_data += '<tr>';
+     for(var cell_count=0; cell_count<cell_data.length; cell_count++)
+     {
+
+       table_data += '<td>'+cell_data[cell_count]+'</td>';
+
+     }
+     table_data += '</tr>';
+    }
+    table_data += '</table>';
+	$('#titulo1').html("Score da UFMG na area de data ");
+    $('#result_1').html(table_data);
+   }
+  });
+ });
+
+$('#questao_4_2').click(function(){
+  $.ajax({
+   url:"http://localhost:5000/scoreDeUmDepartamentoEmUmaArea/UFMG/ai",
+   dataType:"text",
+   success:function(data)
+   {
+    var data = data.split(/\r?\n|\r/);
+    var table_data = '<table class="table table-bordered table-striped">';
+    for(var count = 0; count<data.length; count++)
+    {
+     var cell_data = data[count].split(",");
+     table_data += '<tr>';
+     for(var cell_count=0; cell_count<cell_data.length; cell_count++)
+     {
+
+       table_data += '<td>'+cell_data[cell_count]+'</td>';
+
+     }
+     table_data += '</tr>';
+    }
+    table_data += '</table>';
+	$('#titulo1').html("Score da UFMG na area de ia ");
+    $('#result_1').html(table_data);
+   }
+  });
+ });
+
+$('#questao_4_3').click(function(){
+  $.ajax({
+   url:"http://localhost:5000/scoreDeUmDepartamentoEmUmaArea/UNICAMP/ai",
+   dataType:"text",
+   success:function(data)
+   {
+    var data = data.split(/\r?\n|\r/);
+    var table_data = '<table class="table table-bordered table-striped">';
+    for(var count = 0; count<data.length; count++)
+    {
+     var cell_data = data[count].split(",");
+     table_data += '<tr>';
+     for(var cell_count=0; cell_count<cell_data.length; cell_count++)
+     {
+
+       table_data += '<td>'+cell_data[cell_count]+'</td>';
+
+     }
+     table_data += '</tr>';
+    }
+    table_data += '</table>';
+	$('#titulo1').html("Score da UNICAMP na area de ia ");
+    $('#result_1').html(table_data);
+   }
+  });
+ });
+
+$('#questao_6_1').click(function(){
+  $.ajax({
+   url:"http://localhost:5000/numeroDeProfessoresDeUmDepartamentoQuePublicaramEmUmaArea/UNICAMP/ai",
+   dataType:"text",
+   success:function(data)
+   {
+    var data = data.split(/\r?\n|\r/);
+    var table_data = '<table class="table table-bordered table-striped">';
+    for(var count = 0; count<data.length; count++)
+    {
+     var cell_data = data[count].split(",");
+     table_data += '<tr>';
+     for(var cell_count=0; cell_count<cell_data.length; cell_count++)
+     {
+
+       table_data += '<td>'+cell_data[cell_count]+'</td>';
+
+     }
+     table_data += '</tr>';
+    }
+    table_data += '</table>';
+	$('#titulo1').html("Numero de professores que publicaram na UNICAMP na area de ia ");
+    $('#result_1').html(table_data);
+   }
+  });
+ });
+
+$('#questao_6_2').click(function(){
+  $.ajax({
+   url:"http://localhost:5000/numeroDeProfessoresDeUmDepartamentoQuePublicaramEmUmaArea/UFMG/ai",
+   dataType:"text",
+   success:function(data)
+   {
+    var data = data.split(/\r?\n|\r/);
+    var table_data = '<table class="table table-bordered table-striped">';
+    for(var count = 0; count<data.length; count++)
+    {
+     var cell_data = data[count].split(",");
+     table_data += '<tr>';
+     for(var cell_count=0; cell_count<cell_data.length; cell_count++)
+     {
+
+       table_data += '<td>'+cell_data[cell_count]+'</td>';
+
+     }
+     table_data += '</tr>';
+    }
+    table_data += '</table>';
+	$('#titulo1').html("Numero de professores da UFMG que publicaram na area de ia ");
+    $('#result_1').html(table_data);
+   }
+  });
+ });
+
+$('#questao_6_3').click(function(){
+  $.ajax({
+   url:"http://localhost:5000/numeroDeProfessoresDeUmDepartamentoQuePublicaramEmUmaArea/UFMG/data",
+   dataType:"text",
+   success:function(data)
+   {
+    var data = data.split(/\r?\n|\r/);
+    var table_data = '<table class="table table-bordered table-striped">';
+    for(var count = 0; count<data.length; count++)
+    {
+     var cell_data = data[count].split(",");
+     table_data += '<tr>';
+     for(var cell_count=0; cell_count<cell_data.length; cell_count++)
+     {
+
+       table_data += '<td>'+cell_data[cell_count]+'</td>';
+
+     }
+     table_data += '</tr>';
+    }
+    table_data += '</table>';
+	$('#titulo1').html("Numero de professores da UFMG que publicaram  na area de data ");
+    $('#result_1').html(table_data);
+   }
+  });
+ });
+
+
+$('#questao_8_1').click(function(){
+  $.ajax({
+   url:"http://localhost:5000/PapersDeUmaAreaEmUmDeterminadoAno/2014/arch",
+   dataType:"text",
+   success:function(data)
+   {
+    var data = data.split(/\r?\n|\r/);
+    var table_data = '<table class="table table-bordered table-striped">';
+    for(var count = 0; count<data.length; count++)
+    {
+     var cell_data = data[count].split(",");
+     table_data += '<tr>';
+     for(var cell_count=0; cell_count<cell_data.length; cell_count++)
+     {
+
+       table_data += '<td>'+cell_data[cell_count]+'</td>';
+
+     }
+     table_data += '</tr>';
+    }
+    table_data += '</table>';
+	$('#titulo1').html("Papers de arch em 2014 ");
+    $('#result_1').html(table_data);
+   }
+  });
+ });
+
+$('#questao_8_2').click(function(){
+  $.ajax({
+   url:"http://localhost:5000/PapersDeUmaAreaEmUmDeterminadoAno/2015/arch",
+   dataType:"text",
+   success:function(data)
+   {
+    var data = data.split(/\r?\n|\r/);
+    var table_data = '<table class="table table-bordered table-striped">';
+    for(var count = 0; count<data.length; count++)
+    {
+     var cell_data = data[count].split(",");
+     table_data += '<tr>';
+     for(var cell_count=0; cell_count<cell_data.length; cell_count++)
+     {
+
+       table_data += '<td>'+cell_data[cell_count]+'</td>';
+
+     }
+     table_data += '</tr>';
+    }
+    table_data += '</table>';
+	$('#titulo1').html("Papers de arch em 2015 ");
+    $('#result_1').html(table_data);
+   }
+  });
+ });
+
+$('#questao_8_3').click(function(){
+  $.ajax({
+   url:"http://localhost:5000/PapersDeUmaAreaEmUmDeterminadoAno/2015/mobile",
+   dataType:"text",
+   success:function(data)
+   {
+    var data = data.split(/\r?\n|\r/);
+    var table_data = '<table class="table table-bordered table-striped">';
+    for(var count = 0; count<data.length; count++)
+    {
+     var cell_data = data[count].split(",");
+     table_data += '<tr>';
+     for(var cell_count=0; cell_count<cell_data.length; cell_count++)
+     {
+
+       table_data += '<td>'+cell_data[cell_count]+'</td>';
+
+     }
+     table_data += '</tr>';
+    }
+    table_data += '</table>';
+	$('#titulo1').html("Papers de mobile em 2015 ");
+    $('#result_1').html(table_data);
+   }
+  });
+ });
+
+$('#questao_10_1').click(function(){
+  $.ajax({
+   url:"http://localhost:5000/TodosOsPapersDeUmProfessor/Isabela-Gasparini",
+   dataType:"text",
+   success:function(data)
+   {
+    var data = data.split(/\r?\n|\r/);
+    var table_data = '<table class="table table-bordered table-striped">';
+    for(var count = 0; count<data.length; count++)
+    {
+     var cell_data = data[count].split(",");
+     table_data += '<tr>';
+     for(var cell_count=0; cell_count<cell_data.length; cell_count++)
+     {
+
+       table_data += '<td>'+cell_data[cell_count]+'</td>';
+
+     }
+     table_data += '</tr>';
+    }
+    table_data += '</table>';
+	$('#titulo1').html("Papers da Professora Isabela-Gasparini ");
+    $('#result_1').html(table_data);
+   }
+  });
+ });
+
+$('#questao_10_2').click(function(){
+  $.ajax({
+   url:"http://localhost:5000/TodosOsPapersDeUmProfessor/Flavia-Delicato",
+   dataType:"text",
+   success:function(data)
+   {
+    var data = data.split(/\r?\n|\r/);
+    var table_data = '<table class="table table-bordered table-striped">';
+    for(var count = 0; count<data.length; count++)
+    {
+     var cell_data = data[count].split(",");
+     table_data += '<tr>';
+     for(var cell_count=0; cell_count<cell_data.length; cell_count++)
+     {
+
+       table_data += '<td>'+cell_data[cell_count]+'</td>';
+
+     }
+     table_data += '</tr>';
+    }
+    table_data += '</table>';
+	$('#titulo1').html("Papers da Professora Flavia-Delicato ");
+    $('#result_1').html(table_data);
+   }
+  });
+ });
+
+$('#questao_10_3').click(function(){
+  $.ajax({
+   url:"http://localhost:5000/TodosOsPapersDeUmProfessor/Giseli-Lopes",
+   dataType:"text",
+   success:function(data)
+   {
+    var data = data.split(/\r?\n|\r/);
+    var table_data = '<table class="table table-bordered table-striped">';
+    for(var count = 0; count<data.length; count++)
+    {
+     var cell_data = data[count].split(",");
+     table_data += '<tr>';
+     for(var cell_count=0; cell_count<cell_data.length; cell_count++)
+     {
+
+       table_data += '<td>'+cell_data[cell_count]+'</td>';
+
+     }
+     table_data += '</tr>';
+    }
+    table_data += '</table>';
+	$('#titulo1').html("Papers da Professora Giseli-Lopes");
+    $('#result_1').html(table_data);
+   }
+  });
+ });
+
+
+
+
+
+
+
+ 
+});
+</script>
