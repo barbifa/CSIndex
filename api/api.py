@@ -9,10 +9,10 @@ import os
 
 app = Flask(__name__, template_folder='templates')
 
-#1. Número de publicações em uma determinada conferência de uma área
+#1. Numero de publicacoes em uma determinada conferencia de uma area
 @app.route('/nPubConferenciasDeUmaArea/<string:conferencia>/<string:area>')
 def nPubConferenciasDeUmaArea(conferencia, area):
-    filename = "./data/"+ area + "-out-confs.csv"
+    filename = "../data/"+ area + "-out-confs.csv"
     with open(filename, 'r') as file:
         DATA = []
         data = csv.reader(file)
@@ -35,21 +35,26 @@ def nPubConferenciasDeUmaArea(conferencia, area):
 #questao 2
 @app.route('/numeroPubliNoConjuntoDeConferenciasDeUmaArea/<area>')
 def numeroPubliNoConjuntoDeConferenciasDeUmaArea(area):
-    nPublicacoes = 0
-  
-    filename = "../data/"+ area + "-out-papers.csv"
-    with open(filename, 'r') as file:
-        data = csv.DictReader(file, delimiter=';', quotechar='|')
-        for row in data :
-            nPublicacoes = nPublicacoes + 1
-    
-   		
-    return str(nPublicacoes)
+	nPublicacoes = 0
+	filename = "../data/"+ area + "-out-papers.csv"
+	with open(filename, 'r') as file:
+		data = csv.DictReader(file, delimiter=';', quotechar='|')
+		for row in data :
+			nPublicacoes = nPublicacoes + 1
 
-#3. Scores de todos os departamentos em uma área
+	si = StringIO.StringIO()
+	cw = csv.writer(si)
+	cw.writerow([str(nPublicacoes)])
+	output = make_response(si.getvalue())
+	output.headers["Content-Disposition"] = "attachment; filename=Q2numeroPubliNoConjuntoDeConferenciasDeUmaArea.csv"
+	output.headers["Content-type"] = "text/csv"
+	return output
+
+
+#3. Scores de todos os departamentos em uma area
 @app.route('/scoresDepartamentosDaArea/<string:area>')
 def scoresDepartamentosDaArea(area):
-    filename = "./data/"+ area + "-out-scores.csv"
+    filename = "../data/"+ area + "-out-scores.csv"
     with open(filename, 'r') as file:
         DATA = []
         data = csv.reader(file)
@@ -75,12 +80,19 @@ def scoreDeUmDepartamentoEmUmaArea(departamento, area):
         data = csv.reader(file)
         for row in data :
             if(row[0] == departamento):
-                return str(row[1])
+				si = StringIO.StringIO()
+				cw = csv.writer(si)
+				cw.writerow([str(row[1])])
+				output = make_response(si.getvalue())
+				output.headers["Content-Disposition"] = "attachment; filename=Q4scoreDeUmDepartamentoEmUmaArea.csv"
+				output.headers["Content-type"] = "text/csv"
+				return output
 
-#5. Número de professores que publicam em uma determinada área (organizados por departamentos)
+
+#5. Numero de professores que publicam em uma determinada area (organizados por departamentos)
 @app.route('/nProfessoresArea/<string:area>')
 def nProfessoresArea(area):
-    filename = "./data/"+ area + "-out-profs.csv"
+    filename = "../data/"+ area + "-out-profs.csv"
     with open(filename, 'r') as file:
         DATA = []
         data = csv.reader(file)
@@ -106,12 +118,18 @@ def numeroDeProfessoresDeUmDepartamentoQuePublicaramEmUmaArea(departamento,area)
         data = csv.reader(file)
         for row in data :
             if(row[0] == departamento):
-                return row[1]
+				si = StringIO.StringIO()
+				cw = csv.writer(si)
+				cw.writerow([str(row[1])])
+				output = make_response(si.getvalue())
+				output.headers["Content-Disposition"] = "attachment; filename=Q6numeroDeProfessoresDeUmDepartamentoQuePublicaramEmUmaArea.csv"
+				output.headers["Content-type"] = "text/csv"
+				return output
 
-#7. Todos os papers de uma área (ano, título, deptos e autores)
+#7. Todos os papers de uma area (ano, titulo, deptos e autores)
 @app.route('/papersArea/<string:area>')
 def papersArea( area):
-    filename = "./data/"+ area + "-out-papers.csv"
+    filename = "../data/"+ area + "-out-papers.csv"
     with open(filename, 'r') as file:
         DATA = []
         data = csv.reader(file)
@@ -140,17 +158,19 @@ def PapersDeUmaAreaEmUmDeterminadoAno(ano,area):
             if(row[0]==ano):
                 papers.append(row[2])
 
-    si = StringIO.StringIO()
-    cw = csv.writer(si,quoting=csv.QUOTE_ALL)
-    cw.writerow(papers)
-    output = make_response(si.getvalue())
+	si = StringIO.StringIO()
+	cw = csv.writer(si,quoting=csv.QUOTE_ALL)
+	cw.writerow(papers)
+	output = make_response(si.getvalue())
+	output.headers["Content-Disposition"] = "attachment; filename=Q8PapersDeUmaAreaEmUmDeterminadoAno.csv"
+	output.headers["Content-type"] = "text/csv"
 
     return output
 
-#9. Todos os papers de um departamento em uma área
+#9. Todos os papers de um departamento em uma area
 @app.route('/papersDepartamentoArea/<string:departamento>/<string:area>')
 def papersDepartamentoArea(departamento, area):
-    filename = "./data/"+ area + "-out-papers.csv"
+    filename = "../data/"+ area + "-out-papers.csv"
     with open(filename, 'r') as file:
         DATA = []
         data = csv.reader(file)
@@ -180,10 +200,12 @@ def TodosOsPapersDeUmProfessor(nomeProfessor):
 		papers.append(row[2])
 
 
-    si = StringIO.StringIO()
-    cw = csv.writer(si,quoting=csv.QUOTE_ALL)
-    cw.writerow(papers)
-    output = make_response(si.getvalue())
+	si = StringIO.StringIO()
+	cw = csv.writer(si,quoting=csv.QUOTE_ALL)
+	cw.writerow(papers)
+	output = make_response(si.getvalue())
+	output.headers["Content-Disposition"] = "attachment; filename=Q10TodosOsPapersDeUmProfessor.csv"
+	output.headers["Content-type"] = "text/csv"
     return output
 
 
@@ -193,6 +215,3 @@ def TodosOsPapersDeUmProfessor(nomeProfessor):
 
 if __name__ == '__main__':		
 	app.run(debug=True)
-
-
-
