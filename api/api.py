@@ -67,6 +67,7 @@ def crossdomain(origin=None, methods=None, headers=None, max_age=21600,
 
 #1. Numero de publicacoes em uma determinada conferencia de uma area
 @app.route('/nPubConferenciasDeUmaArea/<string:conferencia>/<string:area>')
+@crossdomain(origin='*')
 def nPubConferenciasDeUmaArea(conferencia, area):
     filename = "../data/"+ area + "-out-confs.csv"
     with open(filename, 'r') as file:
@@ -110,6 +111,7 @@ def numeroPubliNoConjuntoDeConferenciasDeUmaArea(area):
 
 #3. Scores de todos os departamentos em uma area
 @app.route('/scoresDepartamentosDaArea/<string:area>')
+@crossdomain(origin='*')
 def scoresDepartamentosDaArea(area):
     filename = "../data/"+ area + "-out-scores.csv"
     with open(filename, 'r') as file:
@@ -149,6 +151,7 @@ def scoreDeUmDepartamentoEmUmaArea(departamento, area):
 
 #5. Numero de professores que publicam em uma determinada area (organizados por departamentos)
 @app.route('/nProfessoresArea/<string:area>')
+@crossdomain(origin='*')
 def nProfessoresArea(area):
     filename = "../data/"+ area + "-out-profs.csv"
     with open(filename, 'r') as file:
@@ -187,6 +190,7 @@ def numeroDeProfessoresDeUmDepartamentoQuePublicaramEmUmaArea(departamento,area)
 
 #7. Todos os papers de uma area (ano, titulo, deptos e autores)
 @app.route('/papersArea/<string:area>')
+@crossdomain(origin='*')
 def papersArea( area):
     filename = "../data/"+ area + "-out-papers.csv"
     with open(filename, 'r') as file:
@@ -229,6 +233,7 @@ def PapersDeUmaAreaEmUmDeterminadoAno(ano,area):
 
 #9. Todos os papers de um departamento em uma area
 @app.route('/papersDepartamentoArea/<string:departamento>/<string:area>')
+@crossdomain(origin='*')
 def papersDepartamentoArea(departamento, area):
     filename = "../data/"+ area + "-out-papers.csv"
     with open(filename, 'r') as file:
@@ -277,5 +282,4 @@ def TodosOsPapersDeUmProfessor(nomeProfessor):
 
 if __name__ == '__main__':		
 	app.run(debug=True)
-
 
