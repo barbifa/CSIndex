@@ -16,7 +16,7 @@ $ FLASK_APP=teste.py flask run
 
 # GET questoes
 1. Número de publicações em uma determinada conferência de uma área <br />
-    http://localhost:5000/numeroPubliNoConjuntoDeConferenciasDeUmaArea/#conferencia/#area <br />
+    http://localhost:5000/nPubConferenciasDeUmaArea/#conferencia/#area <br />
 
     #conferencia: qualquer abreviacao das conferências
     #area: pode ser qualquer abreviacao das areas em CSIndex/data
