@@ -240,7 +240,7 @@ def papersDepartamentoArea(departamento, area):
         DATA = []
         data = csv.reader(file)
         for row in data :
-            if(row[1] == departamento):
+            if(row[3] == departamento):
                 DATA.append(row)
 
     with open('papers_'+departamento+'_'+area+'.csv', 'w') as csvfile:
@@ -250,7 +250,7 @@ def papersDepartamentoArea(departamento, area):
         writer.writeheader()
 
         for row in DATA:
-            writer.writerow({'Departamento da area ' + area: row[1], 'Paper': row[2]})
+            writer.writerow({'Departamento da area ' + area: row[3], 'Paper': row[2]})
 
     return 'Arquivo salvo!'
 
